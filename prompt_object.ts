@@ -90,3 +90,6 @@ export function promptText(value: string, path: Path): string {
   }
   return answer;
 }
+
+
+export default promptAny;
