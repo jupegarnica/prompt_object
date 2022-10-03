@@ -41,7 +41,7 @@ export function promptObj(object: Obj | null, path: Path = []): Obj {
 }
 type Array = Any[];
 
-export function promptArray(array: Array, path: Path): Array {
+export function promptArray(array: Array, path: Path = []): Array {
   // should ask as many time as the user wants
   const result = [] as Array;
   const value = array[0];
@@ -54,7 +54,7 @@ export function promptArray(array: Array, path: Path): Array {
   return result;
 }
 
-export function promptNumber(value: number, path: Path): number {
+export function promptNumber(value: number, path: Path = []): number {
   const message = path.join(".");
   const answer = prompt(message, String(value));
   if (answer === null) {
@@ -67,7 +67,7 @@ export function promptNumber(value: number, path: Path): number {
   return number;
 }
 
-export function promptBoolean(value: boolean, path: Path): boolean {
+export function promptBoolean(value: boolean, path: Path = []): boolean {
   const message = path.join(".");
   const answer = prompt(message, String(value));
   if (answer === null) {
@@ -82,7 +82,7 @@ export function promptBoolean(value: boolean, path: Path): boolean {
   return value;
 }
 
-export function promptText(value: string, path: Path): string {
+export function promptText(value: string, path: Path = []): string {
   const message = path.join(".");
   const answer = prompt(message, value);
   if (answer === null) {
