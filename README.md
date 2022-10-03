@@ -5,7 +5,7 @@ ask for all the properties of an object, and use the current value as the type a
 
 ## Usage
 ```js
-import prompt_object from 'https://deno.land/x/prompt_object/prompt_object.ts'
+import prompt_object from 'https://deno.land/x/prompt_object/mod.ts'
 
 const obj = {
   name: 'default name',

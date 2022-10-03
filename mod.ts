@@ -44,13 +44,13 @@ type Array = Any[];
 export function promptArray(array: Array, path: Path = []): Array {
   // should ask as many time as the user wants
   const result = [] as Array;
-  const value = array[0];
   let answer;
   let index = 0;
   do {
+    const value = array[index] ?? array[0];
     answer = promptAny(value, path.concat(String(index++)));
     result.push(answer);
-  } while (confirm("add more?"));
+  } while (confirm("-- Add more? --"));
   return result;
 }
 

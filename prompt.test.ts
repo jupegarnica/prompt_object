@@ -1,15 +1,15 @@
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 import { stub } from "https://deno.land/std/testing/mock.ts";
-import { promptObj, promptAny, promptArray, promptBoolean, promptNumber, promptText } from "./prompt_object.ts";
+import { promptObj, promptAny, promptArray, promptBoolean, promptNumber, promptText } from "./mod.ts";
 
 Deno.test('[promptAny] should return the default value if null',
-() => {
+    () => {
 
-    const prompt = stub(window, 'prompt', () => null);
-    const result = promptAny('default value');
-    assertEquals(result, 'default value');
-    prompt.restore();
-})
+        const prompt = stub(window, 'prompt', () => null);
+        const result = promptAny('default value');
+        assertEquals(result, 'default value');
+        prompt.restore();
+    })
 
 
 Deno.test('[promptAny] should work with basic primitives', () => {
@@ -174,6 +174,31 @@ Deno.test('[promptArray] should ask for objects if the first item is an object',
     prompt.restore();
     confirm.restore();
 })
+
+Deno.test('[promptArray] should pass the initial value of the corresponding index',
+    { only: true },
+    () => {
+        const prompt = stub(globalThis, "prompt", (message, initial) => {
+            switch (message) {
+                case "0":
+                    assertEquals(initial, '1');
+                    return "10";
+                case "1":
+                    assertEquals(initial, '2');
+                    return "20";
+                default:
+                    assertEquals(initial, '1');
+                    return "30";
+            }
+        });
+        let i = 0;
+        const confirm = stub(globalThis, "confirm", () => i++ < 2);
+
+        const result = promptArray([1, 2]);
+        assertEquals(result, [10, 20, 30]);
+        prompt.restore();
+        confirm.restore();
+    })
 
 Deno.test('[promptBoolean] should return a boolean', () => {
     const prompt = stub(globalThis, "prompt", () => 'true');
